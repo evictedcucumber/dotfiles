@@ -1,0 +1,55 @@
+format = '''
+$sudo$directory $git_branch $git_status
+$cmd_duration$character
+'''
+
+[directory]
+home_symbol = ' '
+truncation_length = 5
+truncate_to_repo = true
+truncation_symbol = ' '
+read_only = ' '
+read_only_style = 'bold red'
+style = 'bold blue'
+repo_root_style = 'bold blue'
+format = '[$read_only]($read_only_style)[$path]($style)'
+repo_root_format = '[ $repo_root]($repo_root_style)[$path]($style)'
+
+[git_branch]
+symbol = ' '
+style = 'bold purple'
+format = '[$symbol$branch]($style)'
+
+[git_status]
+conflicted = ' '
+ahead = ''
+behind = ''
+diverged = ''
+up_to_date = ''
+untracked = '?'
+stashed = ' '
+modified = ' '
+staged = '+'
+renamed = ''
+deleted = ''
+typechanged = ''
+style = 'bold purple'
+format = '[$all_status$ahead_behind]($style)'
+
+[sudo]
+disabled = false
+symbol = ' '
+style = 'bold'
+format = '[$symbol]($style)'
+
+[cmd_duration]
+min_time = 60000
+show_notifications = true
+min_time_to_notify = 300000
+style = 'bold yellow'
+format = '[$duration]($style)'
+
+[character]
+format = '$symbol '
+success_symbol = '[](bold green)'
+error_symbol = '[](bold red)'

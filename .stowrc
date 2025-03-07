@@ -1,0 +1,5 @@
+--verbose=1
+--target=/home/ethan/.config/
+--ignore .pre-commit-config.yaml
+--ignore .gitmodules
+--ignore .stowrc
