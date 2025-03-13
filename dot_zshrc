@@ -12,7 +12,6 @@ export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 export KEYTIMEOUT=1
 export EDITOR=nvim
 
-export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 export GPG_TTY=$(tty)
 
 # Aliases
@@ -111,10 +110,8 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # Cargo
 . "$HOME/.cargo/env"
 
-# # Load oh-my-posh
-# eval "$(oh-my-posh init zsh --config /home/ethan/.config/omp/config.toml)"
-
 # Starship
+export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 eval "$(starship init zsh)"
 
 # Display fastfetch
