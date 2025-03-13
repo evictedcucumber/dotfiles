@@ -1,0 +1,14 @@
+[user]
+	name = ethan
+	email = 95688781+evictedcucumber@users.noreply.github.com
+[commit]
+	gpgsign = true
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true
+[rebase]
+	updateRefs = true
+[tag]
+	gpgSign = true
+[filter "gitignore"]
