@@ -1,0 +1,124 @@
+#!/usr/bin/zsh
+
+# Aliases
+alias v='nvim'
+alias vv='NVIM_APPNAME=neovim nvim'
+alias cat='batcat'
+alias cp='cp -i'
+alias mv='mv -i'
+alias mkdir='mkdir -p'
+alias rg='rg --color=always'
+alias grep='rg'
+alias ls='eza -a -F=always --icons=always --group-directories-first --sort=name -1'
+alias la='ls -l -h --no-time --no-user'
+alias lt='ls -T -I=".git"'
+alias 'z-'='z -'
+alias 'z..'='z ..'
+# /Aliases
+
+# Functions
+mkcd() {
+  if [[ -d $1 ]]; then
+    cd $1
+  else
+    mkdir -p $1
+    cd $1
+  fi
+}
+
+y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+# /Functions
+
+# Keybinds
+zvm_after_init() {
+    [[ -f "/usr/share/doc/fzf/examples/key-bindings.zsh" ]] && source /usr/share/doc/fzf/examples/key-bindings.zsh
+
+    _y() {
+        y
+        zle redisplay
+    }
+    zle -N _y
+    bindkey '^f' _y
+}
+# /Keybinds
+
+# Styling
+zstyle :compinstall filename "$ZDOTDIR/.zshrc"
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
+zstyle ':completion:*:git-checkout:*' sort false
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -a -F=always --icons=always --group-directories-first --sort=name -1 $realpath'
+zstyle ':fzf-tab:*' switch-group '<' '>'
+# /Styling
+
+# Completion
+[[ -f "/usr/share/doc/fzf/examples/completion.zsh" ]] && source /usr/share/doc/fzf/examples/completion.zsh
+autoload -U compinit; compinit
+# /Completion
+
+# Plugins
+[[ ! -d "$ZDOTDIR/plugins" ]] && mkdir -p $ZDOTDIR/plugins
+
+[[ ! -d "$ZDOTDIR/plugins/fzf-tab" ]] && git clone --depth 1 https://github.com/Aloxaf/fzf-tab.git "$ZDOTDIR/plugins/fzf-tab"
+source $ZDOTDIR/plugins/fzf-tab/fzf-tab.plugin.zsh
+
+[[ ! -d "$ZDOTDIR/plugins/zsh-syntax-highlighting" ]] && git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZDOTDIR/plugins/zsh-syntax-highlighting"
+source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+
+[[ ! -d "$ZDOTDIR/plugins/zsh-autosuggestions" ]] && git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git "$ZDOTDIR/plugins/zsh-autosuggestions"
+source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+
+[[ ! -d "$ZDOTDIR/plugins/zsh-vi-mode" ]] && git clone --depth 1 https://github.com/jeffreytse/zsh-vi-mode.git "$ZDOTDIR/plugins/zsh-vi-mode"
+source $ZDOTDIR/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+# /Plugins
+
+# Zoxide
+eval "$(zoxide init zsh)"
+# /Zoxide
+
+# History
+HISTSIZE=1000000
+SAVEHIST=$HISTSIZE
+HISTFILE="$XDG_STATE_HOME/zshhistory"
+
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+setopt inc_append_history
+# /History
+
+# Options
+setopt correct
+setopt extendedglob
+setopt nocaseglob
+setopt numericglobsort
+setopt nobeep
+# /Options
+
+# Prompt
+PURE_GIT_PULL=0
+
+[[ ! -d "$ZDOTDIR/pure-prompt" ]] && git clone https://github.com/sindresorhus/pure.git "$ZDOTDIR/pure-prompt"
+fpath+=($ZDOTDIR/pure-prompt)
+
+autoload -U promptinit; promptinit
+prompt pure
+# /Prompt
+
+# Display `fastfetch`
+[[ -o login ]] && fastfetch
+# /Display `fastfetch`
