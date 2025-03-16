@@ -1,1 +1,1 @@
-dot_gitconfig filter=gitignore
+dot_config/git/config filter=gitignore
