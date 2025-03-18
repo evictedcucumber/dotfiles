@@ -34,57 +34,55 @@ y() {
 	fi
 	rm -f -- "$tmp"
 }
+
+_fix_cursor(){
+    echo -ne '\e[5 q'
+}
+precmd_functions+=(_fix_cursor)
 # /Functions
 
 # Keybinds
-zvm_after_init() {
-    [[ -f "/usr/share/doc/fzf/examples/key-bindings.zsh" ]] && source /usr/share/doc/fzf/examples/key-bindings.zsh
+bindkey -e
 
-    _y() {
-        y
-        zle redisplay
-    }
-    zle -N _y
-    bindkey '^f' _y
-}
+bindkey -s '^f' "y\n"
 # /Keybinds
 
 # Styling
 zstyle :compinstall filename "$ZDOTDIR/.zshrc"
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
-zstyle ':completion:*:git-checkout:*' sort false
-zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -a -F=always --icons=always --group-directories-first --sort=name -1 $realpath'
 zstyle ':fzf-tab:*' switch-group '<' '>'
 # /Styling
 
+# Zinit Setup
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
+# /Zinit Setup
+
 # Completion
-[[ -f "/usr/share/doc/fzf/examples/completion.zsh" ]] && source /usr/share/doc/fzf/examples/completion.zsh
 autoload -U compinit; compinit
+
+source <(fzf --zsh)
+
+zinit cdreplay -q
 # /Completion
 
 # Plugins
-[[ ! -d "$ZDOTDIR/plugins" ]] && mkdir -p $ZDOTDIR/plugins
-
-[[ ! -d "$ZDOTDIR/plugins/fzf-tab" ]] && git clone --depth 1 https://github.com/Aloxaf/fzf-tab.git "$ZDOTDIR/plugins/fzf-tab"
-source $ZDOTDIR/plugins/fzf-tab/fzf-tab.plugin.zsh
-
-[[ ! -d "$ZDOTDIR/plugins/zsh-syntax-highlighting" ]] && git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZDOTDIR/plugins/zsh-syntax-highlighting"
-source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
-
-[[ ! -d "$ZDOTDIR/plugins/zsh-autosuggestions" ]] && git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git "$ZDOTDIR/plugins/zsh-autosuggestions"
-source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
-
-[[ ! -d "$ZDOTDIR/plugins/zsh-vi-mode" ]] && git clone --depth 1 https://github.com/jeffreytse/zsh-vi-mode.git "$ZDOTDIR/plugins/zsh-vi-mode"
-source $ZDOTDIR/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+zinit ice depth"1"; zinit light Aloxaf/fzf-tab
+zinit ice depth"1"; zinit light zsh-users/zsh-syntax-highlighting
+zinit ice depth"1"; zinit light zsh-users/zsh-autosuggestions
+zinit ice depth"1"; zinit light zsh-users/zsh-completions
 # /Plugins
 
 # Zoxide
 eval "$(zoxide init zsh)"
 # /Zoxide
+
 
 # History
 HISTSIZE=1000000
@@ -112,11 +110,7 @@ setopt nobeep
 # Prompt
 PURE_GIT_PULL=0
 
-[[ ! -d "$ZDOTDIR/pure-prompt" ]] && git clone https://github.com/sindresorhus/pure.git "$ZDOTDIR/pure-prompt"
-fpath+=($ZDOTDIR/pure-prompt)
-
-autoload -U promptinit; promptinit
-prompt pure
+zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'; zinit light sindresorhus/pure
 # /Prompt
 
 # Display `fastfetch`
