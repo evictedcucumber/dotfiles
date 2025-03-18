@@ -16,18 +16,10 @@ keymap = [
 	{ on = "k", run = "arrow -1", desc = "Move cursor up" },
 	{ on = "j", run = "arrow 1",  desc = "Move cursor down" },
 
-	{ on = "<Up>",    run = "arrow -1", desc = "Move cursor up" },
-	{ on = "<Down>",  run = "arrow 1",  desc = "Move cursor down" },
-
 	{ on = "<C-u>", run = "arrow -50%",  desc = "Move cursor up half page" },
 	{ on = "<C-d>", run = "arrow 50%",   desc = "Move cursor down half page" },
 	{ on = "<C-b>", run = "arrow -100%", desc = "Move cursor up one page" },
 	{ on = "<C-f>", run = "arrow 100%",  desc = "Move cursor down one page" },
-
-	{ on = "<S-PageUp>",   run = "arrow -50%",  desc = "Move cursor up half page" },
-	{ on = "<S-PageDown>", run = "arrow 50%",   desc = "Move cursor down half page" },
-	{ on = "<PageUp>",     run = "arrow -100%", desc = "Move cursor up one page" },
-	{ on = "<PageDown>",   run = "arrow 100%",  desc = "Move cursor down one page" },
 
 	{ on = [ "g", "g" ], run = "arrow top", desc = "Move cursor to the top" },
 	{ on = "G",          run = "arrow bot",  desc = "Move cursor to the bottom" },
@@ -35,9 +27,6 @@ keymap = [
 	# Navigation
 	{ on = "h", run = "leave", desc = "Go back to the parent directory" },
 	{ on = "l", run = "enter", desc = "Enter the child directory" },
-
-	{ on = "<Left>",  run = "leave", desc = "Go back to the parent directory" },
-	{ on = "<Right>", run = "enter", desc = "Enter the child directory" },
 
 	{ on = "H", run = "back",    desc = "Go back to the previous directory" },
 	{ on = "L", run = "forward", desc = "Go forward to the next directory" },
@@ -125,35 +114,14 @@ keymap = [
 
 	# Goto
 	{ on = [ "g", "h" ],       run = "cd ~",             desc = "Go home" },
-	{ on = [ "g", "c" ],       run = "cd ~/.config",     desc = "Goto ~/.config" },
-	{ on = [ "g", "d" ],       run = "cd ~/Downloads",   desc = "Goto ~/Downloads" },
+    { on = [ "g", "r" ],       run = "cd ~/repos",       desc = "Go to repos/" },
 	{ on = [ "g", "<Space>" ], run = "cd --interactive", desc = "Jump interactively" },
-
-	# Tabs
-	{ on = "t", run = "tab_create --current", desc = "Create a new tab with CWD" },
-
-	{ on = "1", run = "tab_switch 0", desc = "Switch to the first tab" },
-	{ on = "2", run = "tab_switch 1", desc = "Switch to the second tab" },
-	{ on = "3", run = "tab_switch 2", desc = "Switch to the third tab" },
-	{ on = "4", run = "tab_switch 3", desc = "Switch to the fourth tab" },
-	{ on = "5", run = "tab_switch 4", desc = "Switch to the fifth tab" },
-	{ on = "6", run = "tab_switch 5", desc = "Switch to the sixth tab" },
-	{ on = "7", run = "tab_switch 6", desc = "Switch to the seventh tab" },
-	{ on = "8", run = "tab_switch 7", desc = "Switch to the eighth tab" },
-	{ on = "9", run = "tab_switch 8", desc = "Switch to the ninth tab" },
-
-	{ on = "[", run = "tab_switch -1 --relative", desc = "Switch to the previous tab" },
-	{ on = "]", run = "tab_switch 1 --relative",  desc = "Switch to the next tab" },
-
-	{ on = "{", run = "tab_swap -1", desc = "Swap current tab with previous tab" },
-	{ on = "}", run = "tab_swap 1",  desc = "Swap current tab with next tab" },
 
 	# Tasks
 	{ on = "w", run = "tasks_show", desc = "Show task manager" },
 
 	# Help
 	{ on = "~",    run = "help", desc = "Open help" },
-	{ on = "<F1>", run = "help", desc = "Open help" },
 ]
 
 [tasks]
@@ -167,15 +135,11 @@ keymap = [
 	{ on = "k", run = "arrow -1", desc = "Move cursor up" },
 	{ on = "j", run = "arrow 1",  desc = "Move cursor down" },
 
-	{ on = "<Up>",   run = "arrow -1", desc = "Move cursor up" },
-	{ on = "<Down>", run = "arrow 1",  desc = "Move cursor down" },
-
 	{ on = "<Enter>", run = "inspect", desc = "Inspect the task" },
 	{ on = "x",       run = "cancel",  desc = "Cancel the task" },
 
 	# Help
 	{ on = "~",    run = "help", desc = "Open help" },
-	{ on = "<F1>", run = "help", desc = "Open help" },
 ]
 
 [spot]
@@ -190,11 +154,6 @@ keymap = [
 	{ on = "j", run = "arrow 1",  desc = "Move cursor down" },
 	{ on = "h", run = "swipe -1", desc = "Swipe to the previous file" },
 	{ on = "l", run = "swipe 1",  desc = "Swipe to the next file" },
-
-	{ on = "<Up>",    run = "arrow -1", desc = "Move cursor up" },
-	{ on = "<Down>",  run = "arrow 1",  desc = "Move cursor down" },
-	{ on = "<Left>",  run = "swipe -1", desc = "Swipe to the next file" },
-	{ on = "<Right>", run = "swipe 1",  desc = "Swipe to the previous file" },
 
 	# Copy
 	{ on = [ "c", "c" ], run = "copy cell", desc = "Copy selected cell" },
@@ -214,9 +173,6 @@ keymap = [
 
 	{ on = "k", run = "arrow -1", desc = "Move cursor up" },
 	{ on = "j", run = "arrow 1",  desc = "Move cursor down" },
-
-	{ on = "<Up>",   run = "arrow -1", desc = "Move cursor up" },
-	{ on = "<Down>", run = "arrow 1",  desc = "Move cursor down" },
 
 	# Help
 	{ on = "~",    run = "help", desc = "Open help" },
@@ -243,8 +199,6 @@ keymap = [
 	# Character-wise movement
 	{ on = "h",       run = "move -1", desc = "Move back a character" },
 	{ on = "l",       run = "move 1",  desc = "Move forward a character" },
-	{ on = "<Left>",  run = "move -1", desc = "Move back a character" },
-	{ on = "<Right>", run = "move 1",  desc = "Move forward a character" },
 	{ on = "<C-b>",   run = "move -1", desc = "Move back a character" },
 	{ on = "<C-f>",   run = "move 1",  desc = "Move forward a character" },
 
@@ -296,7 +250,6 @@ keymap = [
 
 	# Help
 	{ on = "~",    run = "help", desc = "Open help" },
-	{ on = "<F1>", run = "help", desc = "Open help" },
 ]
 
 [confirm]
@@ -313,12 +266,8 @@ keymap = [
 	{ on = "k", run = "arrow -1", desc = "Move cursor up" },
 	{ on = "j", run = "arrow 1",  desc = "Move cursor down" },
 
-	{ on = "<Up>",   run = "arrow -1", desc = "Move cursor up" },
-	{ on = "<Down>", run = "arrow 1",  desc = "Move cursor down" },
-
 	# Help
 	{ on = "~",    run = "help", desc = "Open help" },
-	{ on = "<F1>", run = "help", desc = "Open help" },
 ]
 
 [cmp]
@@ -331,15 +280,11 @@ keymap = [
 	{ on = "<A-k>", run = "arrow -1", desc = "Move cursor up" },
 	{ on = "<A-j>", run = "arrow 1",  desc = "Move cursor down" },
 
-	{ on = "<Up>",   run = "arrow -1", desc = "Move cursor up" },
-	{ on = "<Down>", run = "arrow 1",  desc = "Move cursor down" },
-
 	{ on = "<C-p>", run = "arrow -1", desc = "Move cursor up" },
 	{ on = "<C-n>", run = "arrow 1",  desc = "Move cursor down" },
 
 	# Help
 	{ on = "~",    run = "help", desc = "Open help" },
-	{ on = "<F1>", run = "help", desc = "Open help" },
 ]
 
 [help]
@@ -352,9 +297,6 @@ keymap = [
 	# Navigation
 	{ on = "k", run = "arrow -1", desc = "Move cursor up" },
 	{ on = "j", run = "arrow 1",  desc = "Move cursor down" },
-
-	{ on = "<Up>",   run = "arrow -1", desc = "Move cursor up" },
-	{ on = "<Down>", run = "arrow 1",  desc = "Move cursor down" },
 
 	# Filtering
 	{ on = "f", run = "filter", desc = "Apply a filter for the help items" },
