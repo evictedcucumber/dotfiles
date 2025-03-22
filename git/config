@@ -1,6 +1,7 @@
 [user]
 	name = ethan
 	email = 95688781+evictedcucumber@users.noreply.github.com
+	signingkey = 2430601E0FD84B36 ;gitignoreline
 [commit]
 	gpgsign = true
 [init]
