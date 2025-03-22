@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ config, pkgs, ... }:
 {
     home.username = "ethan";
     home.homeDirectory = "/home/ethan";
@@ -14,19 +14,20 @@
     home.stateVersion = "24.11";
 
     home.packages = with pkgs; [
+    	zsh
+        git
+        yazi
+        tmux
         rustup
         tldr
     ];
 
     home.file = {
-        ".zshrc".source = ~/repos/dotfiles/.zshrc;
-        ".config/git".source = ~/repos/dotfiles/git;
-        ".config/tmux".source = ~/repos/dotfiles/tmux;
-        ".config/nvim".source = ~/repos/dotfiles/nvim;
-        ".config/yazi".source = ~/repos/dotfiles/yazi;
-        ".config/home-manager".source = ~/repos/dotfiles/home-manager;
-
-        ".config/neovim".source = ~/repos/neovim;
+        ".zshrc".source = ../.zshrc; 
+        ".config/git".source = ../git;
+        ".config/tmux".source = ../tmux;
+        ".config/yazi".source = ../yazi;
+        # ".config/nvim".source = ../nvim;
     };
 
     home.sessionVariables = {
@@ -40,13 +41,17 @@
         ZINIT_HOME = "$XDG_DATA_HOME/zinit/zinit.git";
     };
 
-    programs.git.enable = true;
-    programs.neovim = {
-        enable = true;
-        # package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+    nix = {
+      package = pkgs.nixVersions.stable;
+      extraOptions = ''
+        experimental-features = nix-command flakes
+      '';
     };
-    programs.zsh.enable = true;
-    programs.yazi.enable = true;
-    programs.tmux.enable = true;
+
+    # programs.neovim = {
+    #     enable = true;
+    #     # package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+    # };
+
     programs.home-manager.enable = true;
 }
