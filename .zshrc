@@ -106,6 +106,10 @@ setopt numericglobsort
 setopt nobeep
 # /Options
 
+# Cargo
+[[ -d $CARGO_HOME ]] && . "$CARGO_HOME/env"
+# /Cargo
+
 # Nix
 source $HOME/.nix-profile/etc/profile.d/nix.sh
 # /Nix
